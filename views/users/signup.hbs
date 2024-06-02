@@ -2,21 +2,18 @@
     <div class="col-md-6 m-auto">
         <div class="container mt-5 pl-5">
             <h2 class="text-center">Create new account</h2>
-            <form action="/signup" method="post"> 
+            <form action="/signup" method="POST">
                 <div class="form-outline mb-4">
-                    <input type="name" name="Name" id="form2Example0" class="form-control" />
-                    <label class="form-label" for="form2Example0">Name</label>
+                    <input type="text" name="Name" placeholder="name" class="form-control">
                 </div>
                 <!-- Email input -->
                 <div class="form-outline mb-4">
-                    <input type="email" name="Email address" id="form2Example1" class="form-control" />
-                    <label class="form-label" for="form2Example1">Email address</label>
+                    <input type="email" name="Email" placeholder="email" class="form-control">
                 </div>
 
                 <!-- Password input -->
                 <div class="form-outline mb-4">
-                    <input type="password" name="Password" id="form2Example2" class="form-control" />
-                    <label class="form-label" for="form2Example2">Password</label>
+                    <input type="password" name="Password" placeholder="password" class="form-control">
                 </div>
 
                 <a href="/login">Already have an account ?</a>
