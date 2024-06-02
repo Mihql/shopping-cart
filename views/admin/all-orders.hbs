@@ -1,0 +1,46 @@
+<section>
+    <div class="container">
+        <h1>All Orders</h1>
+        <table id="admin" class="table compact">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Order ID</th>
+                    <th>Status</th>
+                    <th>Name</th>
+                    <th>Mail</th>
+                    <th>Address</th>
+                    <th></th>
+                    <th>Quantity</th>
+                    <th>Total Amount</th>
+                    <!-- Add more headers as needed -->
+                </tr>
+            </thead>
+            <tbody>
+                {{#each allOrders}}
+                <tr>
+                    <td>{{this.date}}</td>
+                    <td>{{this._id}}</td> <!-- Assuming _id is the order ID -->
+                    <td>{{this.status}}[{{this.payment}}]</td> <!-- Assuming status is the order status -->
+                    <td>{{this.deliveryDetails.name}}</td>
+                    <td>{{this.deliveryDetails.mail}}</td>
+                    <td>{{this.deliveryDetails.address}}</td>
+                    {{#each products}}
+                    <td><img style="width:100px; height:auto" src="/product-images/{{this.item}}.jpg" alt="...">
+                    </td>
+                    <td>{{this.quantity}}</td>
+                    {{/each}}
+                    <td>{{this.totalAmount}}</td>
+                    <!-- Add more columns as needed -->
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#admin').DataTable();
+    })
+</script>

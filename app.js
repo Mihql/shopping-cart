@@ -3,11 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan')
-var session = require('express-session');
+var session = require('express-session'); // sessions, cookie
 
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
-var hbs=require('express-handlebars');
+var hbs= require('express-handlebars');
 var app = express();
 var fileUpload=require('express-fileupload')
 var db = require('./config/connection')
@@ -23,6 +23,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
+
+// session
 app.use(session({secret:"key",cookie:{maxAge:600000}, resave: true, saveUninitialized: true}))
 
 db.connect(function(err){

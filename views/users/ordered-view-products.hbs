@@ -1,0 +1,15 @@
+<section>
+    <div class="container">
+        {{#each products}}
+        <tr>
+            <td><img style="width:100px; height:auto" src="/product-images/{{this.product._id}}.jpg" alt="...">
+            </td>
+            <td>{{this.product.name}}</td>
+            <td>
+                <p class="ml-3">${{this.product.price}}</p>
+            </td>
+            <td>{{this.product.description}}</td>
+        </tr>
+        {{/each}}
+    </div>
+</section>

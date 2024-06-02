@@ -1,0 +1,109 @@
+<section>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Quatity</th>
+                    <th class="mt-3" scope="col">Price</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {{#each products}}
+                <tr>
+                    <td><img style="width:100px; height:auto" src="/product-images/{{this.product._id}}.jpg" alt="...">
+                    </td>
+                    <td>{{this.product.name}}</td>
+
+                    <td>
+                        <button class="cart-item-count"
+                            onclick="changeQuantity('{{this._id}}', '{{this.product._id}}', '{{../user._id}}', -1)">-</button>
+                        <span id="{{this.product._id}}">{{this.quantity}}</span> {{!-- tag id is taken as product _id
+                        --}}
+                        <button class="cart-item-count"
+                            onclick="changeQuantity('{{this._id}}', '{{this.product._id}}', '{{../user._id}}', 1)">+</button>
+                    </td>
+
+                    {{!-- <td>
+                        <h1>{{this.product.description}}</h1>
+                    </td> --}}
+                    <td>
+                        <p class="ml-3">${{this.product.price}}</p>
+                    </td>
+
+                    <td>
+                        <button class="btn btn-danger"
+                            onclick="removeProduct('{{this._id}}', '{{this.product._id}}')">Remove</button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+
+        </table>
+        <hr>
+        <h5 class="float-right ml-5 mt-5">{{user._id}}Total Cost:$<span id="total">{{totalValue}}</span></h5>
+        <a class="float-right btn btn-primary mt-5" href="/place-order">Place Order</a>
+    </div>
+</section>
+
+<script>
+    function changeQuantity(cartId, proId, userId, count) {
+        let quantity = parseInt(document.getElementById(proId).innerHTML)
+
+        count = parseInt(count)
+        console.log(userId, "userID")
+        $.ajax({
+            url: '/change-product-quantity',
+            data: {
+                user: userId,
+                cart: cartId,
+                product: proId,
+                count: count,
+                quantity: quantity
+            },
+            method: 'post',
+            success: (response) => {
+                if (response.removeProduct) {
+                    alert("product removed from cart")
+                    location.reload()
+                } else {
+                    console.log(response)
+                    document.getElementById(proId).innerHTML = quantity + count
+                    if (response.total !== undefined) {
+                        document.getElementById('total').innerHTML = response.total
+                    } else {
+                        document.getElementById('total').innerHTML = 0
+                    }
+
+
+                }
+            }
+        })
+    }
+
+    function removeProduct(cartId, proId) {
+        $.ajax({
+            url: '/remove-product',
+            data: {
+                cart: cartId,
+                product: proId
+            },
+            method: 'post',
+            success: (response) => {
+                location.reload()
+            },
+            error: (error) => {
+                console.error("error removing product:", error)
+            }
+        })
+    }
+
+
+</script>
+
+{{!--
+<link rel="" href="/public/javascripts/changeQuantity.js"> --}}
+{{!--
+<script src="/public/javascripts/changeQuantity.js"></script> --}}

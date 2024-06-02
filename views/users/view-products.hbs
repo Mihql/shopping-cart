@@ -8,8 +8,10 @@
                     <img src="/product-images/{{this._id}}.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{this.name}}</h5>
-                        <p class="card-text">{{this.description}}</p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                        <p class="card-text">{{this.category}}</p>
+                        <p class="card-text">{{this.price}}</p>
+                        {{!-- <a href="/add-to-cart/{{this._id}}" class="btn btn-primary">Add to Cart</a> --}}
+                        <button onclick="addToCart('{{this._id}}')" class="btn btn-primary"> Add to Cart</button>
                     </div>
                 </div>
             </div>
